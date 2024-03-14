@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.ParticleSystemJobs;
 
 public class Fruit : MonoBehaviour
 {
@@ -13,12 +14,14 @@ public class Fruit : MonoBehaviour
 
     Rigidbody fruitRB;
     Collider fruitCD;
+    ParticleSystem fruitPS;
 
     private void Awake()
     {
         wholeFruit.SetActive(true); 
         fruitCD = GetComponent<Collider>();
         fruitRB = GetComponent<Rigidbody>();
+        fruitPS = GetComponentInChildren<ParticleSystem>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -29,6 +32,7 @@ public class Fruit : MonoBehaviour
         {
 
             slice(blade.dir, blade.transform.position,blade.force);
+            
          
         }
         
@@ -39,6 +43,7 @@ public class Fruit : MonoBehaviour
 
         wholeFruit.SetActive(false);
         slicedFruit.SetActive(true);
+        fruitPS.Play();
         fruitCD.enabled = false;
         Rigidbody[] slices = slicedFruit.GetComponentsInChildren<Rigidbody>();
 
