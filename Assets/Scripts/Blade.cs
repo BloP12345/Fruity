@@ -78,7 +78,10 @@ public class Blade : MonoBehaviour
 
     }
 
-
+public bool ReturnSlicing()
+    {
+        return canSlice;
+    }
 
 
 

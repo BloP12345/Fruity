@@ -11,6 +11,9 @@ public class Fruit : MonoBehaviour
     // full -- > entertrigger -- > sliced 
     [SerializeField] GameObject wholeFruit;
     [SerializeField] GameObject slicedFruit;
+    [SerializeField] int score;
+
+    Score scoreScript;
 
     Rigidbody fruitRB;
     Collider fruitCD;
@@ -22,6 +25,7 @@ public class Fruit : MonoBehaviour
         fruitCD = GetComponent<Collider>();
         fruitRB = GetComponent<Rigidbody>();
         fruitPS = GetComponentInChildren<ParticleSystem>();
+        scoreScript = FindAnyObjectByType<Score>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,7 +36,7 @@ public class Fruit : MonoBehaviour
         {
 
             slice(blade.dir, blade.transform.position,blade.force);
-            
+            scoreScript.UpScore(score);
          
         }
         
@@ -59,6 +63,11 @@ public class Fruit : MonoBehaviour
 
 
 
+    }
+
+    public int returnnum()
+    {
+        return score;
     }
 
 
