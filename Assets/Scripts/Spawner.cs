@@ -20,6 +20,8 @@ public class Spawner : MonoBehaviour
     Collider spawnCollider;
 
     [SerializeField] GameObject[] fruitsGO;
+    [SerializeField] GameObject bombGO;
+    float bombPossibility = 0.05f;
 
     private void Awake()
     {
@@ -44,6 +46,13 @@ public class Spawner : MonoBehaviour
         while (enabled)
         {
             GameObject fruitGO = fruitsGO[Random.Range(0, fruitsGO.Length)];
+            
+            if(Random.value <bombPossibility)
+            {
+                fruitGO = bombGO;
+                Debug.Log("Bomb");
+            }
+
 
             Vector3 spawnPos = new Vector3();
 
@@ -57,15 +66,27 @@ public class Spawner : MonoBehaviour
             Rigidbody fruitRB = fruit.GetComponent<Rigidbody>();
             fruitRB.AddForce(fruit.transform.up * Random.Range(minForce,maxForce),ForceMode.Impulse);
 
+
+            
+
+
             Destroy(fruit, maxLifeTime);
 
-            yield return new WaitForSeconds(Random.Range(minDelay, maxDelay));  
+            yield return new WaitForSeconds(Random.Range(minDelay, maxDelay));
+
+
+
+   /*         GameObject bomb = Instantiate(bombGO, spawnPos, lunchAngle);
+            Rigidbody bombRB = bomb.GetComponent<Rigidbody>();
+            bombRB.AddForce(bomb.transform.up * Random.Range(minForce, maxForce), ForceMode.Impulse);*/
+
+
         }
 
 
 
 
-        
+
     }
 
 }
